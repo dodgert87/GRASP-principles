@@ -1,38 +1,58 @@
-# GRASP Principle: Information Expert
+# GRASP Principle: Controller
 
 ## Definition:
 
-The **Information Expert** principle states that responsibility should be assigned to the class that has the necessary information to fulfill it. This ensures that the system is designed around the classes that know the most about the task at hand.
+The **Controller** principle assigns the responsibility for handling a system event to a class representing one of these choices:
+
+- Represents the overall system.
+- Represents a use case scenario.
+
+The controller is responsible for receiving input and coordinating actions between different parts of the system.
 
 ## Explanation:
 
-The **Information Expert** principle helps in distributing responsibilities to the class that already holds the data or the logic needed to execute a task. This reduces dependencies and keeps the system cohesive by preventing unrelated classes from manipulating data they don’t own or understand.
+The **Controller** principle is important for separating user interface concerns from the core logic of the application. A controller class intercepts system events (such as user inputs), interprets them, and delegates the work to the appropriate classes, thereby managing the flow of control.
 
 ## Example:
 
-In our **Task Management System**, the `Task` class is responsible for managing its own status and details. Since `Task` knows whether it is finished or open, it makes sense to assign the responsibility for marking the task as open or finished to the `Task` class. Similarly, the `Developer` class knows which tasks are assigned to it and manages them accordingly.
+In our **Task Management System**, the `TaskManagerController` class handles user inputs and coordinates actions between the models (e.g., `Project`, `Task`, `Developer`) and views (the terminal in this case). This ensures that the system logic is separated from the user interface, keeping the application flexible and maintainable.
 
-Here’s how the **Information Expert** principle is applied:
+Here’s how the **Controller** principle is applied:
 
 ```java
-public class Task {
-    private int order;
-    private String title;
-    private String description;
-    private boolean isCritical;
-    private boolean isFinished;
-    private Developer holder;
+public class TaskManagerController {
+    private Scanner scanner = new Scanner(System.in);
+    private List<Project> projects = new ArrayList<>();
+    private PersistenceManager persistenceManager = new PersistenceManager();
 
-    // Information Expert: Task manages its status
-    public void markAsFinished() {
-        this.isFinished = true;
+    // Controller: Handles system events
+    public void start() {
+        // Load projects from storage
+        projects = persistenceManager.loadProjects();
+
+        while (true) {
+            System.out.println("1. List Projects");
+            System.out.println("2. Create Project");
+            System.out.println("3. Exit");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    listProjects();
+                    break;
+                case 2:
+                    createProject();
+                    break;
+                case 3:
+                    persistenceManager.saveProjects(projects);
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
     }
 
-    public void markAsOpen() {
-        this.isFinished = false;
-    }
-
-    // Getters and Setters
+    // Methods for listing and creating projects
 }
-
-You can find the Class file in **src/main/java/org/example/Task** 
+You can find the Class file in **src/main/java/org/example/TaskManagerController** 
