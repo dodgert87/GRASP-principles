@@ -1,38 +1,28 @@
-# GRASP Principle: Information Expert
+# GRASP Principle: Indirection
 
 ## Definition:
 
-The **Information Expert** principle states that responsibility should be assigned to the class that has the necessary information to fulfill it. This ensures that the system is designed around the classes that know the most about the task at hand.
+The **Indirection** principle assigns responsibilities to intermediate objects that mediate between other components or services to achieve low coupling. By introducing an intermediary, we reduce the direct dependencies between classes, making the system more modular and flexible.
 
 ## Explanation:
 
-The **Information Expert** principle helps in distributing responsibilities to the class that already holds the data or the logic needed to execute a task. This reduces dependencies and keeps the system cohesive by preventing unrelated classes from manipulating data they don’t own or understand.
+Indirection introduces an intermediate class to decouple high-level modules from low-level modules. This helps to reduce direct dependencies and allows changes in one part of the system without affecting other parts. By using indirection, we can improve modularity, reusability, and flexibility in our design.
 
 ## Example:
 
-In our **Task Management System**, the `Task` class is responsible for managing its own status and details. Since `Task` knows whether it is finished or open, it makes sense to assign the responsibility for marking the task as open or finished to the `Task` class. Similarly, the `Developer` class knows which tasks are assigned to it and manages them accordingly.
+In our **Task Management System**, we use service classes like `TaskService` to mediate between the controller and the domain models (`Project`, `Task`). The controller doesn't directly interact with the `Project` or `Task` objects for adding tasks, and instead, it delegates this responsibility to the `TaskService`. This intermediary service handles the task creation, promoting low coupling between the controller and model.
 
-Here’s how the **Information Expert** principle is applied:
+Here’s how the **Indirection** principle is applied:
 
 ```java
-public class Task {
-    private int order;
-    private String title;
-    private String description;
-    private boolean isCritical;
-    private boolean isFinished;
-    private Developer holder;
-
-    // Information Expert: Task manages its status
-    public void markAsFinished() {
-        this.isFinished = true;
+public class TaskService {
+    // Indirection: Mediates between controller and task model
+    public void addTaskToProject(Project project, String title, String description, int order, boolean isCritical) {
+        project.createTask(title, description, order, isCritical);
     }
 
-    public void markAsOpen() {
-        this.isFinished = false;
-    }
-
-    // Getters and Setters
+    // Other task-related operations
 }
+
 
 You can find the Class file in **src/main/java/org/example/Task** 
