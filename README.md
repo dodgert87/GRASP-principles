@@ -1,38 +1,30 @@
-# GRASP Principle: Information Expert
+# GRASP Principle: Polymorphism
 
 ## Definition:
 
-The **Information Expert** principle states that responsibility should be assigned to the class that has the necessary information to fulfill it. This ensures that the system is designed around the classes that know the most about the task at hand.
+The **Polymorphism** principle suggests that behavior should vary based on type, and this variation should be handled using polymorphic methods. This allows for dynamic method dispatch where different types of objects can be treated uniformly, but they can behave differently based on their actual class.
 
 ## Explanation:
 
-The **Information Expert** principle helps in distributing responsibilities to the class that already holds the data or the logic needed to execute a task. This reduces dependencies and keeps the system cohesive by preventing unrelated classes from manipulating data they don’t own or understand.
+Polymorphism allows objects of different classes to be treated as instances of a common superclass. This helps in reducing conditionals and enhances flexibility by allowing subclasses to provide specific implementations of methods while sharing a common interface or abstract class.
 
 ## Example:
 
-In our **Task Management System**, the `Task` class is responsible for managing its own status and details. Since `Task` knows whether it is finished or open, it makes sense to assign the responsibility for marking the task as open or finished to the `Task` class. Similarly, the `Developer` class knows which tasks are assigned to it and manages them accordingly.
+In our **Task Management System**, we may have different types of tasks, such as `CriticalTask` and `NormalTask`. Both types of tasks share common attributes and behaviors but may have some specific logic or attributes unique to their type. By using polymorphism, we can treat all tasks as instances of a common `Task` class while allowing `CriticalTask` and `NormalTask` to implement their specific functionality.
 
-Here’s how the **Information Expert** principle is applied:
+Here’s how the **Polymorphism** principle is applied:
 
 ```java
-public class Task {
-    private int order;
-    private String title;
-    private String description;
-    private boolean isCritical;
-    private boolean isFinished;
-    private Developer holder;
+public abstract class TaskTag {
+    // Common attributes and methods
+}
 
-    // Information Expert: Task manages its status
-    public void markAsFinished() {
-        this.isFinished = true;
-    }
+public class CriticalTask extends TaskTag {
+    // Specific implementation for critical tasks
+}
 
-    public void markAsOpen() {
-        this.isFinished = false;
-    }
-
-    // Getters and Setters
+public class NormalTask extends TaskTag {
+    // Specific implementation for normal tasks
 }
 
 You can find the Class file in **src/main/java/org/example/Task** 
