@@ -1,38 +1,26 @@
-# GRASP Principle: Information Expert
+# GRASP Principle: Pure Fabrication
 
 ## Definition:
 
-The **Information Expert** principle states that responsibility should be assigned to the class that has the necessary information to fulfill it. This ensures that the system is designed around the classes that know the most about the task at hand.
+The **Pure Fabrication** principle assigns a highly cohesive set of responsibilities to a class that does not represent a concept from the problem domain. This artificial class exists solely to support the design of the system, often improving modularity, reuse, or the separation of concerns.
 
 ## Explanation:
 
-The **Information Expert** principle helps in distributing responsibilities to the class that already holds the data or the logic needed to execute a task. This reduces dependencies and keeps the system cohesive by preventing unrelated classes from manipulating data they don’t own or understand.
+Sometimes, creating a class that doesn’t directly represent a problem domain entity can help reduce coupling or increase cohesion. Such a class, called a **Pure Fabrication**, is a design pattern that groups responsibilities into one place for reasons like maintaining low coupling or facilitating reuse. This class is not a representation of any real-world concept in the domain, but it is essential for the system’s architecture.
 
 ## Example:
 
-In our **Task Management System**, the `Task` class is responsible for managing its own status and details. Since `Task` knows whether it is finished or open, it makes sense to assign the responsibility for marking the task as open or finished to the `Task` class. Similarly, the `Developer` class knows which tasks are assigned to it and manages them accordingly.
+In our **Task Management System**, the `PersistenceManager` class is a **Pure Fabrication**. It is responsible for handling the saving and loading of data, but it is not part of the core domain model (projects, tasks, developers). It is created solely to manage persistence and keep the domain classes focused on their responsibilities without being burdened by data storage logic.
 
-Here’s how the **Information Expert** principle is applied:
+Here’s how the **Pure Fabrication** principle is applied:
 
 ```java
-public class Task {
-    private int order;
-    private String title;
-    private String description;
-    private boolean isCritical;
-    private boolean isFinished;
-    private Developer holder;
+public class PersistenceManager {
+    // Pure Fabrication: Handles saving and loading data
 
-    // Information Expert: Task manages its status
-    public void markAsFinished() {
-        this.isFinished = true;
-    }
-
-    public void markAsOpen() {
-        this.isFinished = false;
-    }
-
-    // Getters and Setters
+    // Methods for file operations or database interactions
+   
 }
+
 
 You can find the Class file in **src/main/java/org/example/Task** 
