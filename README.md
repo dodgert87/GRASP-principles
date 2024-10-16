@@ -1,38 +1,51 @@
-# GRASP Principle: Information Expert
+# GRASP Principle: Protected Variations
 
 ## Definition:
 
-The **Information Expert** principle states that responsibility should be assigned to the class that has the necessary information to fulfill it. This ensures that the system is designed around the classes that know the most about the task at hand.
+The **Protected Variations** principle identifies points of predicted variation in a system and creates a stable interface around them. This protects other parts of the system from changes that might occur due to varying implementations or evolving requirements.
 
 ## Explanation:
 
-The **Information Expert** principle helps in distributing responsibilities to the class that already holds the data or the logic needed to execute a task. This reduces dependencies and keeps the system cohesive by preventing unrelated classes from manipulating data they don’t own or understand.
+The **Protected Variations** principle is essential for designing flexible and maintainable systems. By identifying areas that are likely to change (such as different data storage mechanisms) and encapsulating them behind a stable interface, we prevent those changes from affecting the rest of the system. This reduces the ripple effect of changes, allowing the system to adapt without introducing bugs or causing extensive rewrites.
 
 ## Example:
 
-In our **Task Management System**, the `Task` class is responsible for managing its own status and details. Since `Task` knows whether it is finished or open, it makes sense to assign the responsibility for marking the task as open or finished to the `Task` class. Similarly, the `Developer` class knows which tasks are assigned to it and manages them accordingly.
+In our **Task Management System**, we may need to support different data storage mechanisms, such as a file system or a database. To achieve this flexibility, we use the **Protected Variations** principle by defining a `DataAccess` interface. This interface is stable, meaning the rest of the system interacts with it, while the underlying implementations (file system or database) can change without affecting the rest of the codebase.
 
-Here’s how the **Information Expert** principle is applied:
+Here’s how the **Protected Variations** principle is applied:
 
 ```java
-public class Task {
-    private int order;
-    private String title;
-    private String description;
-    private boolean isCritical;
-    private boolean isFinished;
-    private Developer holder;
-
-    // Information Expert: Task manages its status
-    public void markAsFinished() {
-        this.isFinished = true;
-    }
-
-    public void markAsOpen() {
-        this.isFinished = false;
-    }
-
-    // Getters and Setters
+public interface DataAccess {
+    void saveProjects(List<Project> projects);
+    List<Project> loadProjects();
 }
 
-You can find the Class file in **src/main/java/org/example/Task** 
+public class FileDataAccess implements DataAccess {
+    // Implementation using file system
+    @Override
+    public void saveProjects(List<Project> projects) {
+        // Save projects to file system
+    }
+
+    @Override
+    public List<Project> loadProjects() {
+        // Load projects from file system
+        return new ArrayList<>();
+    }
+}
+
+public class DatabaseDataAccess implements DataAccess {
+    // Implementation using a database
+    @Override
+    public void saveProjects(List<Project> projects) {
+        // Save projects to database
+    }
+
+    @Override
+    public List<Project> loadProjects() {
+        // Load projects from database
+        return new ArrayList<>();
+    }
+}
+
+You can find the Class file in **src/main/java/org/example/DataAccess** 
