@@ -11,21 +11,31 @@ public class Task {
     private Developer holder;
 
     public Task(String title, String description, int order, boolean isCritical) {
+        this.order = order;
+        this.title = title;
+        this.description = description;
+        this.isCritical = isCritical;
+        this.isFinished = false;
+        this.holder = null;
     }
 
     // Information Expert: Task manages its status
     public void markAsFinished() {
         this.isFinished = true;
     }
-
     public void markAsOpen() {
         this.isFinished = false;
     }
+
 
     public void setHolder(Developer developer) {
     }
 
     public void setFinished(boolean isFinished) {
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     // Getters and Setters

@@ -11,21 +11,22 @@ public class TaskManagerController {
     private Scanner scanner;
     private List<Project> projects;
     private PersistenceManager persistenceManager;
-    private TaskService taskService;
     private DeveloperService developerService;
 
     public TaskManagerController(PersistenceManager persistenceManager) {
         this.scanner = new Scanner(System.in);
         this.persistenceManager = persistenceManager;
         this.projects = persistenceManager.loadProjects();
-        this.taskService = new TaskService();
         this.developerService = new DeveloperService();
     }
 
 
-
+    // Controller: Manages the flow of the application
     public void start() {
-        // Controller: Manages the flow of the application
+
+        // Load projects from storage
+        projects = persistenceManager.loadProjects();
+
         while (true) {
             System.out.println("1. List Projects");
             System.out.println("2. Create Project");

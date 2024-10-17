@@ -11,6 +11,12 @@ public class Developer {
     private String department;
     private List<Task> tasks = new ArrayList<>();
 
+    public Developer(String name, String title, String department) {
+        this.name = name;
+        this.title = title;
+        this.department = department;
+    }
+
     // High Cohesion: Methods related to developer's tasks
     public void assignTask(Task task) {
         tasks.add(task);
@@ -19,6 +25,10 @@ public class Developer {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public String getName() {
+        return name;
     }
 
     // Getters and Setters
