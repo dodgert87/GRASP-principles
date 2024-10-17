@@ -10,19 +10,60 @@ Indirection introduces an intermediate class to decouple high-level modules from
 
 ## Example:
 
-In our **Task Management System**, we use service classes like `TaskService` to mediate between the controller and the domain models (`Project`, `Task`). The controller doesn't directly interact with the `Project` or `Task` objects for adding tasks, and instead, it delegates this responsibility to the `TaskService`. This intermediary service handles the task creation, promoting low coupling between the controller and model.
+In our **Task Management System**, we use the `PersistenceManager` to mediate between the controller and the data access implementations (`FileDataAccess` or `DatabaseDataAccess`). The controller doesn't directly interact with the file system or the database; instead, it relies on the `PersistenceManager` to handle data operations. This intermediary service handles the persistence logic, promoting low coupling between the controller and the data storage systems.
 
 Here’s how the **Indirection** principle is applied:
 
 ```java
-public class TaskService {
-    // Indirection: Mediates between controller and task model
-    public void addTaskToProject(Project project, String title, String description, int order, boolean isCritical) {
-        project.createTask(title, description, order, isCritical);
-    }
-
-    // Other task-related operations
+public interface DataAccess {
+    // Indirection: Interface for handling data operations
+    void saveProjects(List<Project> projects);
+    List<Project> loadProjects();
 }
 
+public class FileDataAccess implements DataAccess {
+    // Implementation for file system data access
+    @Override
+    public void saveProjects(List<Project> projects) {
+        // Save projects to file system
+    }
 
-You can find the Class file in **src/main/java/org/example/Task** 
+    @Override
+    public List<Project> loadProjects() {
+        // Load projects from file system
+        return new ArrayList<>();
+    }
+}
+
+public class DatabaseDataAccess implements DataAccess {
+    // Implementation for database data access
+    @Override
+    public void saveProjects(List<Project> projects) {
+        // Save projects to database
+    }
+
+    @Override
+    public List<Project> loadProjects() {
+        // Load projects from database
+        return new ArrayList<>();
+    }
+}
+
+public class PersistenceManager {
+    private DataAccess dataAccess;
+
+    // Indirection: Mediates between the controller and data storage
+    public PersistenceManager(DataAccess dataAccess) {
+        this.dataAccess = dataAccess;
+    }
+
+    public void saveProjects(List<Project> projects) {
+        dataAccess.saveProjects(projects);
+    }
+
+    public List<Project> loadProjects() {
+        return dataAccess.loadProjects();
+    }
+}
+
+You can find the Class file in **src/main/java/org/example/DataAccess** 
