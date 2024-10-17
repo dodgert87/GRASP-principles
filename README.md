@@ -10,17 +10,20 @@ Sometimes, creating a class that doesn’t directly represent a problem domain e
 
 ## Example:
 
-In our **Task Management System**, the `PersistenceManager` class is a **Pure Fabrication**. It is responsible for handling the saving and loading of data, but it is not part of the core domain model (projects, tasks, developers). It is created solely to manage persistence and keep the domain classes focused on their responsibilities without being burdened by data storage logic.
+In our **Task Management System**, the `NotificationService` class is a **Pure Fabrication**. It is responsible for sending notifications to developers about tasks, but it is not part of the core domain model (projects, tasks, developers). It is created solely to manage the notification process and keep the domain classes focused on their responsibilities without being burdened by external communication logic.
 
 Here’s how the **Pure Fabrication** principle is applied:
 
 ```java
-public class PersistenceManager {
-    // Pure Fabrication: Handles saving and loading data
+public class NotificationService {
+    // Pure Fabrication: Handles sending notifications to developers
 
-    // Methods for file operations or database interactions
-   
+    // Method to notify a developer about a task
+    public void sendTaskNotification(Developer developer, Task task) {
+        // Example: Send a notification to the developer
+        System.out.println("Notification sent to " + developer.getName() + 
+                           " about task: " + task.getTitle());
+    }
 }
 
-
-You can find the Class file in **src/main/java/org/example/Task** 
+You can find the Class file in **src/main/java/org/example/NotificationService** 
