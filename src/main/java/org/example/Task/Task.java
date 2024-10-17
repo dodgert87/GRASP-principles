@@ -1,21 +1,22 @@
 package org.example.Task;
 
-public class Task {
-    private int order;
-    private String title;
-    private String description;
-    private boolean isCritical;
-    private boolean isFinished;
-    private Developer holder;
+import org.example.Developer.Developer;
 
-    // Information Expert: Task manages its status
-    public void markAsFinished() {
-        this.isFinished = true;
-    }
+// Abstract class for priority tasks
+public abstract class Task {
+    protected int order;
+    protected String title;
+    protected String description;
+    protected boolean isFinished;
 
-    public void markAsOpen() {
+    public Task(String title, String description, int order) {
+        this.title = title;
+        this.description = description;
+        this.order = order;
         this.isFinished = false;
     }
+    public abstract String getPriority();
+
 
     // Getters and Setters
 }
