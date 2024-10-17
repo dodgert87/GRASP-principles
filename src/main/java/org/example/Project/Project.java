@@ -1,5 +1,6 @@
 package org.example.Project;
 
+import org.example.Task.LowPriorityTask;
 import org.example.Task.Task;
 import org.example.Developer.Developer;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Project {
 
     // Creator: Project creates Task instances
     public void createTask(String title, String description, int order, boolean isCritical) {
-        Task task = new Task(title, description, order, isCritical);
+        Task task = new LowPriorityTask(title, description, order, isCritical);
         tasks.add(task);
     }
 
