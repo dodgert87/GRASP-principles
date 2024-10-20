@@ -1,6 +1,5 @@
 package org.example.Task;
 
-import org.example.Developer.DeveloperService;
 import org.example.PersistenceManager.PersistenceManager;
 import org.example.Project.Project;
 
@@ -11,15 +10,12 @@ public class TaskManagerController {
     private Scanner scanner;
     private List<Project> projects;
     private PersistenceManager persistenceManager;
-    private DeveloperService developerService;
 
     public TaskManagerController(PersistenceManager persistenceManager) {
         this.scanner = new Scanner(System.in);
         this.persistenceManager = persistenceManager;
         this.projects = persistenceManager.loadProjects();
-        this.developerService = new DeveloperService();
     }
-
 
     // Controller: Manages the flow of the application
     public void start() {
@@ -51,10 +47,10 @@ public class TaskManagerController {
 
     // Methods for listing and creating projects, managing tasks and developers
     private void createProject() {
-        //todo
+        // todo
     }
 
     private void listProjects() {
-        //todo
+        // todo
     }
 }
