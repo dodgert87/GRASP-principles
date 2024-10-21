@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseDataAccess implements DataAccess {
+
     // Implementation using a database
     @Override
     public void saveProjects(List<Project> projects) {

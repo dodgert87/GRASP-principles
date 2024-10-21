@@ -1,5 +1,6 @@
 package org.example.Project;
 
+import org.example.Task.HighPriorityTask;
 import org.example.Task.LowPriorityTask;
 import org.example.Task.Task;
 import org.example.Developer.Developer;
@@ -8,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Project {
+    @SuppressWarnings("unused")
     private String name;
     private List<Task> tasks = new ArrayList<>();
     private List<Developer> developers = new ArrayList<>();
@@ -18,8 +20,13 @@ public class Project {
 
     // Creator: Project creates Task instances
     public void createTask(String title, String description, int order, boolean isCritical) {
-        Task task = new LowPriorityTask(title, description, order, isCritical);
-        tasks.add(task);
+        if (isCritical) {
+            Task task = new HighPriorityTask(title, description, order);
+            tasks.add(task);
+        } else {
+            Task task = new LowPriorityTask(title, description, order);
+            tasks.add(task);
+        }
     }
 
     // Creator: Project creates Developer instances

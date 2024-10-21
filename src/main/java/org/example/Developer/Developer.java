@@ -7,7 +7,9 @@ import java.util.List;
 
 public class Developer {
     private String name;
+    @SuppressWarnings("unused")
     private String title;
+    @SuppressWarnings("unused")
     private String department;
     private List<Task> tasks = new ArrayList<>();
 
@@ -20,7 +22,6 @@ public class Developer {
     // High Cohesion: Methods related to developer's tasks
     public void assignTask(Task task) {
         tasks.add(task);
-        task.setHolder(this);
     }
 
     public List<Task> getTasks() {

@@ -2,7 +2,7 @@ package org.example.Task;
 
 public class LowPriorityTask extends Task {
 
-    public LowPriorityTask(String title, String description, int order, boolean isCritical) {
+    public LowPriorityTask(String title, String description, int order) {
         super(title, description, order);
     }
 

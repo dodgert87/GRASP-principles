@@ -7,7 +7,9 @@ import org.example.Task.TaskManagerController;
 
 public class Main {
     public static void main(String[] args) {
-        // Protected Variations: Can switch between different data access implementations
+
+        // Protected Variations: Can switch between different data access
+        // implementations
         DataAccess dataAccess = new FileDataAccess();
         PersistenceManager persistenceManager = new PersistenceManager(dataAccess);
 

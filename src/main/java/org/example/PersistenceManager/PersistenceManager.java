@@ -2,7 +2,6 @@ package org.example.PersistenceManager;
 
 import org.example.DataAccess.DataAccess;
 import org.example.Project.Project;
-
 import java.util.List;
 
 public class PersistenceManager {
@@ -18,5 +17,9 @@ public class PersistenceManager {
 
     public List<Project> loadProjects() {
         return dataAccess.loadProjects();
+    }
+
+    public void autoSave(List<Project> projects) {
+        // auto Save mechanism.
     }
 }

@@ -17,18 +17,16 @@ public abstract class Task {
         this.isFinished = false;
         this.holder = null;
     }
+
     public abstract String getPriority();
 
     // Information Expert: Task manages its status
     public void markAsFinished() {
         this.isFinished = true;
     }
+
     public void markAsOpen() {
         this.isFinished = false;
-    }
-
-
-    public void setHolder(Developer developer) {
     }
 
     public void setFinished(boolean isFinished) {
@@ -40,4 +38,3 @@ public abstract class Task {
 
     // Getters and Setters
 }
-
